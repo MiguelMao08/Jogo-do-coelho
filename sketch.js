@@ -40,7 +40,7 @@ function preload()
 
  coelhoComendo.playing  = true;
  coelhoPiscando.playing = true;
- coelhoTriste.playing = false;
+ coelhoTriste.playing = true;
 }
 
 
@@ -62,7 +62,7 @@ function setup()
   coelhoTriste.frameDelay = 10;
   coelhoComendo.frameDelay = 7;
 
-  coelho = createSprite(width/2, height - 100);
+  coelho = createSprite(width-30, height - 100);
   //coelho.addImage(imgcoelho);
   
   coelho.addAnimation("piscando", coelhoPiscando);
@@ -101,6 +101,7 @@ function cortar(){
   corda.break();
   link.detach();
   link = null;
+  somCorda.play();
 }
 
 function mutar(){
@@ -135,10 +136,17 @@ function draw()
   Engine.update(engine);
   
   if (colisao(fruta,coelho) == true){
-    coelho.changeAnimation("comendo")
+    coelho.changeAnimation("comendo");
+    somComendo.play();
   }
 
-   drawSprites();
+  if (fruta != null && fruta.position.y>=650){
+    coelho.changeAnimation("triste");
+    somTriste.play();
+    fruta = null;
+  }
+
+  drawSprites();
 }
 
 function colisao (body, sprite){
