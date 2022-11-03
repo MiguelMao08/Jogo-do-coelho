@@ -9,15 +9,16 @@ const Composite = Matter.Composite; //grupo
 
 let engine; //escopo de bloco
 let world;
-var corda;
+var corda, corda2, corda3;
 var fruta;
 var solo;
-var link;
+var link, link2, link3;
 var coelho;
 var imgcoelho, imgfruta, imgfundo;
-var botao, botaoMudo, balao;
+var botao, botaoMudo, balao, botao2, botao3;
 var coelhoComendo, coelhoTriste, coelhoPiscando;
 var somFundo, somComendo, somCorda, somTriste, somAr;
+var canW, canH;
 
 function preload()
 {
@@ -46,8 +47,17 @@ function preload()
 
 function setup() 
 {
-  createCanvas(500,700);
-
+  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if(isMobile){
+    canW = displayWidth;
+    canH = displayHeight;
+    createCanvas(canW+80, canH);
+  }else{
+    canW = windowWidth;
+    canH = windowHeight;
+    createCanvas(canW, canH);
+  }
+  
   somFundo.play();
   somFundo.setVolume(0.3);
  
@@ -55,14 +65,17 @@ function setup()
   world = engine.world;
 
   corda = new Rope(6,{x:250,y:30});
+  corda2 = new Rope(3,{x:190,y:150});
+  corda3 = new Rope(9,{x:350,y:10});
 
-  solo = new Ground(width/2, height-10, width, 10);
+
+  solo = new Ground(width/2, canH-50, width, 10);
 
   coelhoPiscando.frameDelay = 10;
   coelhoTriste.frameDelay = 10;
   coelhoComendo.frameDelay = 7;
 
-  coelho = createSprite(width-30, height - 100);
+  coelho = createSprite(500, canH - 150);
   //coelho.addImage(imgcoelho);
   
   coelho.addAnimation("piscando", coelhoPiscando);
@@ -73,8 +86,14 @@ function setup()
 
   fruta = Bodies.circle(300,300,20);
   Matter.Composite.add(corda.body,fruta);
+  //Matter.Composite.add(corda2.body,fruta);
+  //Matter.Composite.add(corda3.body,fruta);
 
+  
   link = new Link(corda,fruta);
+  link2 = new Link(corda2,fruta);
+  link3 = new Link(corda3,fruta);
+
 
   rectMode(CENTER);
   ellipseMode(RADIUS);
@@ -85,6 +104,16 @@ function setup()
   botao.position(250,30);
   botao.size(30,30);
   botao.mouseClicked(cortar);
+
+  botao2 = createImg("assets/cut_button.png");
+  botao2.position(190,150);
+  botao2.size(30,30);
+  botao2.mouseClicked(cortar2);
+
+  botao3 = createImg("assets/cut_button.png");
+  botao3.position(350,10);
+  botao3.size(30,30);
+  botao3.mouseClicked(cortar3);
 
   botaoMudo = createImg("assets/mute.png");
   botaoMudo.position(430,30);
@@ -101,6 +130,20 @@ function cortar(){
   corda.break();
   link.detach();
   link = null;
+  somCorda.play();
+}
+
+function cortar2(){
+  corda2.break();
+  link2.detach();
+  link2 = null;
+  somCorda.play();
+}
+
+function cortar3(){
+  corda3.break();
+  link3.detach();
+  link3 = null;
   somCorda.play();
 }
 
@@ -124,14 +167,14 @@ function draw()
   //ellipse(fruta.position.x, fruta.position.y,60);
 
   corda.show();
+  corda2.show();
+  corda3.show();
  
   if(fruta != null){
     image(imgfruta, fruta.position.x-25, fruta.position.y-50,60,60);
   }
 
-  solo.show();
-
-  
+  //solo.show();
 
   Engine.update(engine);
   
