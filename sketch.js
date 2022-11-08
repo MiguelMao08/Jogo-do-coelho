@@ -66,7 +66,7 @@ function setup()
 
   corda = new Rope(6,{x:250,y:30});
   corda2 = new Rope(3,{x:190,y:150});
-  corda3 = new Rope(9,{x:350,y:10});
+  corda3 = new Rope(9,{x:280,y:10});
 
 
   solo = new Ground(width/2, canH-50, width, 10);
@@ -75,7 +75,7 @@ function setup()
   coelhoTriste.frameDelay = 10;
   coelhoComendo.frameDelay = 7;
 
-  coelho = createSprite(500, canH - 150);
+  coelho = createSprite(300, canH - 150);
   //coelho.addImage(imgcoelho);
   
   coelho.addAnimation("piscando", coelhoPiscando);
@@ -111,12 +111,12 @@ function setup()
   botao2.mouseClicked(cortar2);
 
   botao3 = createImg("assets/cut_button.png");
-  botao3.position(350,10);
+  botao3.position(280,10);
   botao3.size(30,30);
   botao3.mouseClicked(cortar3);
 
   botaoMudo = createImg("assets/mute.png");
-  botaoMudo.position(430,30);
+  botaoMudo.position(300,30);
   botaoMudo.size(50,50);
   botaoMudo.mouseClicked(mutar);
 
