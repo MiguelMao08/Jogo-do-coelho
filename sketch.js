@@ -64,9 +64,9 @@ function setup()
   engine = Engine.create();
   world = engine.world;
 
-  corda = new Rope(6,{x:250,y:30});
-  corda2 = new Rope(3,{x:190,y:150});
-  corda3 = new Rope(9,{x:280,y:10});
+  corda = new Rope(5,{x:200,y:30});
+  corda2 = new Rope(3,{x:110,y:150});
+  corda3 = new Rope(8,{x:249,y:10});
 
 
   solo = new Ground(width/2, canH-50, width, 10);
@@ -101,17 +101,17 @@ function setup()
   //imageMode(CENTER);
   
   botao = createImg("assets/cut_button.png");
-  botao.position(250,30);
+  botao.position(195,30);
   botao.size(30,30);
   botao.mouseClicked(cortar);
 
   botao2 = createImg("assets/cut_button.png");
-  botao2.position(190,150);
+  botao2.position(100,150);
   botao2.size(30,30);
   botao2.mouseClicked(cortar2);
 
   botao3 = createImg("assets/cut_button.png");
-  botao3.position(280,10);
+  botao3.position(240,10);
   botao3.size(30,30);
   botao3.mouseClicked(cortar3);
 
